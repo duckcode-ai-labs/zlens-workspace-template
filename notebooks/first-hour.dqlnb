@@ -1,0 +1,41 @@
+{
+  "dqlnbVersion": 1,
+  "version": 1,
+  "title": "Your first hour",
+  "metadata": {
+    "title": "Your first hour",
+    "description": "Run the sample end to end: look at the orders table, reproduce the certified block's numbers, then write the SQL you want certified next."
+  },
+  "cells": [
+    {
+      "id": "about",
+      "type": "markdown",
+      "title": "About",
+      "source": "# Your first hour\n\nThis notebook runs against the workspace's default connection: the sample DuckDB file for the first hour (`sample/dql.config.duckdb.json`), your warehouse once `dql.config.json` points at it.\n\nEach person who runs these cells sees their own rows: in ZLens Enterprise, row rules and column policies set in the admin console apply to every query, including these."
+    },
+    {
+      "id": "orders_sample",
+      "type": "sql",
+      "title": "Ten orders",
+      "source": "SELECT order_id, customer_id, region, product, status, order_date, amount\nFROM orders\nORDER BY order_date DESC\nLIMIT 10"
+    },
+    {
+      "id": "revenue_by_region",
+      "type": "sql",
+      "title": "Revenue by region (the certified block's SQL)",
+      "source": "SELECT region, COUNT(DISTINCT order_id) AS order_count, SUM(amount) AS revenue\nFROM orders\nWHERE status <> 'cancelled'\nGROUP BY region\nORDER BY revenue DESC"
+    },
+    {
+      "id": "revenue_by_month",
+      "type": "sql",
+      "title": "Revenue by month",
+      "source": "SELECT date_trunc('month', order_date) AS month, COUNT(DISTINCT order_id) AS order_count, SUM(amount) AS revenue\nFROM orders\nWHERE status <> 'cancelled'\nGROUP BY 1\nORDER BY 1"
+    },
+    {
+      "id": "next",
+      "type": "markdown",
+      "title": "Next",
+      "source": "## Make the next answer certified\n\n1. Write the SQL here until it is right.\n2. Open a draft space (My draft spaces) or a branch on your laptop, and save it as a block under `domains/orders/blocks/` with the same fields as `revenue-by-region.dql`: owner, description, grain, outputs, sourceSystems, reviewCadence and a test.\n3. Mark it certified and submit for review. A steward approves the pull request; when it merges, Production follows main and Ask answers with the Certified label."
+    }
+  ]
+}

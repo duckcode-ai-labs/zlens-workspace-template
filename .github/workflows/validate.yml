@@ -1,0 +1,30 @@
+# Checks every push and pull request with the open-source ZLens CLI, pinned to
+# the release the Enterprise worker runs. Once the ZLens Enterprise GitHub App
+# is connected, its "DQL certification" check joins this one; until then this
+# workflow is what keeps a broken block out of main.
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate DQL files and semantic references
+        run: npx -y -p @zlens/cli@0.1.0 zlens validate --format json
+        env:
+          ZLENS_TELEMETRY: "off"
+      - name: Build the Apps (tiles must resolve to their Datasets)
+        run: npx -y -p @zlens/cli@0.1.0 zlens app build . --format json
+        env:
+          ZLENS_TELEMETRY: "off"

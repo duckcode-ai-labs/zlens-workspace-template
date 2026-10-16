@@ -1,0 +1,20 @@
+{
+  "project": "starter-workspace",
+  "manifestVersion": 3,
+  "apps": {
+    "datasets": true
+  },
+  "connections": {
+    "default": {
+      "driver": "duckdb",
+      "filepath": "sample/starter.duckdb"
+    }
+  },
+  "semanticLayer": {
+    "provider": "dql",
+    "path": "semantic-layer"
+  },
+  "governance": {
+    "required_fields": ["domain", "owner", "description"]
+  }
+}

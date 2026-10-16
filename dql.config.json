@@ -1,0 +1,26 @@
+{
+  "project": "starter-workspace",
+  "manifestVersion": 3,
+  "apps": {
+    "datasets": true
+  },
+  "connections": {
+    "default": {
+      "driver": "postgresql",
+      "host": "warehouse.example.internal",
+      "port": 5432,
+      "database": "analytics",
+      "schema": "public",
+      "username": "zlens_reader",
+      "password": "${ZLENS_WAREHOUSE_PASSWORD}",
+      "sslMode": "require"
+    }
+  },
+  "semanticLayer": {
+    "provider": "dql",
+    "path": "semantic-layer"
+  },
+  "governance": {
+    "required_fields": ["domain", "owner", "description"]
+  }
+}

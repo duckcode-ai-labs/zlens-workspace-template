@@ -1,0 +1,229 @@
+{
+  "version": 3,
+  "id": "overview",
+  "metadata": {
+    "title": "Orders this week",
+    "description": "Orders placed and revenue, the weekly trend, and where orders come from. Every tile reads the certified Orders Dataset, so a number here is a number a steward certified.",
+    "domain": "orders",
+    "audience": "stakeholders",
+    "visibility": "shared",
+    "lifecycle": "certified"
+  },
+  "layout": {
+    "kind": "grid",
+    "cols": 12,
+    "rowHeight": 80,
+    "items": [
+      {
+        "i": "orders-placed",
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 2,
+        "sourceId": "app:block:orders:f033f4c6020b68ff3bf0",
+        "sourceRevision": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb",
+        "query": {
+          "dimensions": [],
+          "measures": [
+            {
+              "measure": "order_count"
+            }
+          ]
+        },
+        "viz": {
+          "type": "kpi"
+        },
+        "title": "Orders placed",
+        "sourceClass": "certified_block",
+        "filterBindings": [],
+        "review": {
+          "status": "not_required",
+          "sourceFingerprint": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb"
+        },
+        "trustState": "certified",
+        "reviewStatus": "certified"
+      },
+      {
+        "i": "revenue",
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 2,
+        "sourceId": "app:block:orders:f033f4c6020b68ff3bf0",
+        "sourceRevision": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb",
+        "query": {
+          "dimensions": [],
+          "measures": [
+            {
+              "measure": "revenue"
+            }
+          ]
+        },
+        "viz": {
+          "type": "kpi"
+        },
+        "title": "Revenue",
+        "sourceClass": "certified_block",
+        "filterBindings": [],
+        "review": {
+          "status": "not_required",
+          "sourceFingerprint": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb"
+        },
+        "trustState": "certified",
+        "reviewStatus": "certified"
+      },
+      {
+        "i": "revenue-by-week",
+        "x": 0,
+        "y": 2,
+        "w": 12,
+        "h": 4,
+        "sourceId": "app:block:orders:f033f4c6020b68ff3bf0",
+        "sourceRevision": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb",
+        "query": {
+          "dimensions": [
+            {
+              "field": "order_date",
+              "timeGrain": "week"
+            }
+          ],
+          "measures": [
+            {
+              "measure": "revenue"
+            }
+          ],
+          "orderBy": [
+            {
+              "alias": "order_date_week",
+              "direction": "asc"
+            }
+          ]
+        },
+        "viz": {
+          "type": "line"
+        },
+        "title": "Revenue by week",
+        "sourceClass": "certified_block",
+        "filterBindings": [],
+        "review": {
+          "status": "not_required",
+          "sourceFingerprint": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb"
+        },
+        "trustState": "certified",
+        "reviewStatus": "certified"
+      },
+      {
+        "i": "orders-by-region",
+        "x": 0,
+        "y": 6,
+        "w": 6,
+        "h": 5,
+        "sourceId": "app:block:orders:f033f4c6020b68ff3bf0",
+        "sourceRevision": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb",
+        "query": {
+          "dimensions": [
+            {
+              "field": "region"
+            }
+          ],
+          "measures": [
+            {
+              "measure": "revenue"
+            },
+            {
+              "measure": "order_count"
+            }
+          ],
+          "orderBy": [
+            {
+              "alias": "revenue",
+              "direction": "desc"
+            }
+          ]
+        },
+        "viz": {
+          "type": "bar"
+        },
+        "title": "Revenue by region",
+        "sourceClass": "certified_block",
+        "filterBindings": [],
+        "review": {
+          "status": "not_required",
+          "sourceFingerprint": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb"
+        },
+        "trustState": "certified",
+        "reviewStatus": "certified"
+      },
+      {
+        "i": "orders-by-product",
+        "x": 6,
+        "y": 6,
+        "w": 6,
+        "h": 5,
+        "sourceId": "app:block:orders:f033f4c6020b68ff3bf0",
+        "sourceRevision": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb",
+        "query": {
+          "dimensions": [
+            {
+              "field": "region"
+            },
+            {
+              "field": "product"
+            }
+          ],
+          "measures": [
+            {
+              "measure": "order_count"
+            },
+            {
+              "measure": "revenue"
+            }
+          ],
+          "orderBy": [
+            {
+              "alias": "order_count",
+              "direction": "desc"
+            }
+          ],
+          "limit": 50
+        },
+        "viz": {
+          "type": "table"
+        },
+        "title": "Orders by region and product",
+        "sourceClass": "certified_block",
+        "filterBindings": [],
+        "review": {
+          "status": "not_required",
+          "sourceFingerprint": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb"
+        },
+        "trustState": "certified",
+        "reviewStatus": "certified"
+      }
+    ]
+  },
+  "datasets": [
+    {
+      "id": "dataset_ece307d44d5da959",
+      "sourceId": "app:block:orders:f033f4c6020b68ff3bf0",
+      "sourceRevision": "sha256:04914726769228689d70aaf6b4358e0d7776b6e05eb598518a79192dd44b3ffb",
+      "snapshotId": "aaed0b7c5aadec68498373e12cde795177c3453ed8a218097bcc8b9a0dfb8573",
+      "contractFingerprint": "sha256:04223c18231001b26a038f5c9fdf8d0eabddcdb0d2ceb2a5446a02946cde6f55"
+    }
+  ],
+  "filters": [
+    {
+      "id": "region",
+      "type": "multiselect",
+      "label": "Region",
+      "scope": {
+        "app": true
+      },
+      "datasetBindings": {
+        "dataset_ece307d44d5da959": {
+          "field": "region"
+        }
+      }
+    }
+  ]
+}

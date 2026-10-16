@@ -1,0 +1,16 @@
+# Who reviews what. GitHub asks these owners for review on every pull request
+# that touches their paths; ZLens Enterprise's "DQL certification" check is the
+# steward's approval. Replace the placeholders with your teams.
+#
+# Stewards certify: every block, Dataset, metric and App.
+*                    @your-org/zlens-stewards
+domains/             @your-org/zlens-stewards
+semantic-layer/      @your-org/zlens-stewards
+apps/                @your-org/zlens-stewards
+notebooks/           @your-org/zlens-stewards
+
+# Admins own the connection and the workflow: a change to dql.config.json takes
+# effect only once merged, and a preview never runs on a changed connection.
+dql.config.json      @your-org/zlens-admins
+.github/             @your-org/zlens-admins
+CODEOWNERS           @your-org/zlens-admins

@@ -1,0 +1,38 @@
+# The workspace's certified metrics. `status: certified` is what the install
+# guide's "at least one certified metric" means: Ask answers from these with the
+# Certified label. The domain's owner (domains/orders/domain.dql) owns them.
+metrics:
+  - name: order_count
+    label: Orders
+    description: Distinct orders placed, excluding cancelled orders.
+    domain: orders
+    status: certified
+    cube: orders
+    table: orders
+    sql: COUNT(DISTINCT order_id)
+    type: count_distinct
+    aggregation: count_distinct
+    metric_type: simple
+    type_params:
+      measure: order_count
+    agg_time_dimension: order_date
+    filter: "status <> 'cancelled'"
+  - name: revenue
+    label: Revenue
+    description: Sum of order amounts, excluding cancelled orders.
+    domain: orders
+    status: certified
+    cube: orders
+    table: orders
+    sql: SUM(amount)
+    type: sum
+    aggregation: sum
+    metric_type: simple
+    type_params:
+      measure: revenue
+    agg_time_dimension: order_date
+    filter: "status <> 'cancelled'"
+    format:
+      kind: currency
+      currency: USD
+      decimals: 0

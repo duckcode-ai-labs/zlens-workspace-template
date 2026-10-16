@@ -1,0 +1,8 @@
+name: order
+label: Order
+description: One order placed by a customer.
+domain: orders
+cube: orders
+table: orders
+type: primary
+expr: order_id

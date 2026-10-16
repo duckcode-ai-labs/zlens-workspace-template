@@ -1,0 +1,42 @@
+// dql-format: 1
+
+// The workspace's first certified answer. Everything a steward needs is in the
+// block: who owns it, what one row means, which columns come out, where the
+// data comes from, how often it is re-reviewed, and a test that must pass.
+// Change the SQL, the owner and the description to your own; keep the fields.
+block "Revenue by region" {
+  domain = "orders"
+  type = "custom"
+  status = "certified"
+  owner = "data-steward@example.com"
+  description = "Orders placed and revenue by region: the number of distinct orders and the sum of order amounts, for every region, over all time. Cancelled orders are excluded. Answers questions like 'What is revenue by region?' and 'How many orders did each region place?'."
+  pattern = "custom"
+  grain = "one row per region"
+  entities = ["region"]
+  outputs = ["region", "order_count", "revenue"]
+  sourceSystems = ["warehouse.orders"]
+  reviewCadence = "quarterly"
+  llmContext = "Use for questions about revenue or order counts by region with no time filter. For a period, month or trend, use the Orders Dataset."
+  tags = ["orders", "revenue", "starter"]
+
+  query = """
+SELECT
+  region,
+  COUNT(DISTINCT order_id) AS order_count,
+  SUM(amount) AS revenue
+FROM orders
+WHERE status <> 'cancelled'
+GROUP BY region
+ORDER BY revenue DESC
+"""
+
+  visualization {
+    chart = "bar"
+    x = region
+    y = revenue
+  }
+
+  tests {
+    assert row_count > 0
+  }
+}

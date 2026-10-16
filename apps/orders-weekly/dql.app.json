@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "id": "orders-weekly",
+  "name": "Orders Weekly",
+  "description": "What the orders team looks at every Monday: orders placed, revenue, the weekly trend and where orders come from. Every tile reads the certified Orders Dataset.",
+  "visibility": "shared",
+  "publicationIntent": "shared_project",
+  "ownerDomain": "orders",
+  "usesDomains": [
+    "orders"
+  ],
+  "requiredExports": [],
+  "domain": "orders",
+  "audience": "everyone in the workspace, until you name the groups this App is for",
+  "audienceGroups": [
+    "everyone"
+  ],
+  "lifecycle": "certified",
+  "reviewCadence": "quarterly",
+  "owners": [
+    "data-steward@example.com"
+  ],
+  "members": [
+    {
+      "userId": "data-steward@example.com",
+      "displayName": "Data steward",
+      "roles": [
+        "owner",
+        "analyst"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "owner",
+      "displayName": "Owner"
+    },
+    {
+      "id": "analyst",
+      "displayName": "Analyst"
+    },
+    {
+      "id": "viewer",
+      "displayName": "Viewer"
+    }
+  ],
+  "policies": [
+    {
+      "id": "readers",
+      "domain": "orders",
+      "minClassification": "internal",
+      "allowedRoles": [
+        "viewer",
+        "analyst",
+        "owner"
+      ],
+      "accessLevel": "read",
+      "enabled": true
+    },
+    {
+      "id": "analyst-execute",
+      "domain": "orders",
+      "minClassification": "internal",
+      "allowedRoles": [
+        "analyst",
+        "owner"
+      ],
+      "accessLevel": "execute",
+      "enabled": true
+    },
+    {
+      "id": "owner-admin",
+      "domain": "orders",
+      "minClassification": "restricted",
+      "allowedRoles": [
+        "owner"
+      ],
+      "accessLevel": "admin",
+      "enabled": true
+    }
+  ],
+  "rlsBindings": [],
+  "schedules": [],
+  "homepage": {
+    "type": "dashboard",
+    "id": "overview"
+  }
+}

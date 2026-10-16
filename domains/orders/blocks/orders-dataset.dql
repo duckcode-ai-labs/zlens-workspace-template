@@ -1,0 +1,64 @@
+// dql-format: 1
+
+// A certified Dataset: the governed source Apps build their tiles on. One row
+// per order, with the dimensions people slice by, the order date as the time
+// axis, and the two measures the metrics define. Tiles may only aggregate the
+// measures declared here, so a page can never show a number a steward did not
+// certify.
+block "Orders Dataset" {
+  domain = "orders"
+  type = "custom"
+  status = "certified"
+  owner = "data-steward@example.com"
+  description = "Certified order-level Dataset: one row per order that counts, with its region, product, status, order date and amount. Cancelled orders are excluded, as in the revenue and order_count metrics. Source of the Orders Weekly App's tiles."
+  pattern = "custom"
+  entities = ["order"]
+  outputs = ["order_id", "customer_id", "region", "product", "status", "order_date", "amount"]
+  sourceSystems = ["warehouse.orders"]
+  reviewCadence = "quarterly"
+  llmContext = "Use for questions about orders or revenue by region, product, status or over time (day, week, month)."
+  tags = ["orders", "app-datasets", "starter"]
+
+  grain = {
+    entities = ["order"]
+    keys = ["order_id"]
+    keyEvidence = "proof.orders"
+    timeGrain = "day"
+  }
+
+  fields {
+    order_id { role = "key", type = "string" }
+    customer_id { role = "attribute", type = "string" }
+    region { role = "dimension", type = "string" }
+    product { role = "dimension", type = "string" }
+    status { role = "dimension", type = "string" }
+    order_date { role = "time", type = "timestamp", grains = ["day", "week", "month"], primary = true }
+    amount { role = "attribute", type = "number" }
+  }
+
+  measures {
+    order_count { agg = "count_distinct", from = "order_id", additive = "non_additive", allowedAggs = ["count_distinct"], format = "number" }
+    revenue { agg = "sum", from = "amount", additive = "additive", allowedAggs = ["sum"], format = "currency", currency = "USD" }
+  }
+
+  query = """
+SELECT
+  order_id,
+  customer_id,
+  region,
+  product,
+  status,
+  order_date,
+  amount
+FROM orders
+WHERE status <> 'cancelled'
+"""
+
+  visualization {
+    chart = "bar"
+  }
+
+  tests {
+    assert row_count > 0
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "zlens-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A ZLens Enterprise workspace: dql.config.json plus the governed project files at the repository root.",
+  "scripts": {
+    "validate": "zlens validate",
+    "doctor": "zlens doctor",
+    "build:apps": "zlens app build .",
+    "notebook": "zlens notebook",
+    "sample:duckdb": "npm install --prefix .dql/connectors --no-save --no-package-lock duckdb@1.1.3",
+    "sample:seed": "node sample/seed.mjs",
+    "sample:use": "node -e \"require('fs').copyFileSync('sample/dql.config.duckdb.json','dql.config.json')\""
+  },
+  "devDependencies": {
+    "@zlens/cli": "0.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

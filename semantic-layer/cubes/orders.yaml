@@ -1,0 +1,44 @@
+name: orders
+label: Orders
+description: One row per order placed.
+domain: orders
+table: orders
+sql: SELECT * FROM orders
+measures:
+  - name: order_count
+    label: Orders
+    description: Distinct orders placed.
+    sql: COUNT(DISTINCT order_id)
+    type: count_distinct
+    aggregation: count_distinct
+    agg_time_dimension: order_date
+  - name: revenue
+    label: Revenue
+    description: Sum of order amounts.
+    sql: SUM(amount)
+    type: sum
+    aggregation: sum
+    agg_time_dimension: order_date
+dimensions:
+  - name: region
+    label: Region
+    description: Sales region the order was placed in.
+    sql: region
+    type: string
+  - name: product
+    label: Product
+    description: Product line.
+    sql: product
+    type: string
+  - name: status
+    label: Status
+    description: placed, shipped, delivered, returned or cancelled.
+    sql: status
+    type: string
+time_dimensions:
+  - name: order_date
+    label: Order date
+    description: When the order was placed.
+    sql: order_date
+    granularities: [day, week, month]
+    primary_time: true

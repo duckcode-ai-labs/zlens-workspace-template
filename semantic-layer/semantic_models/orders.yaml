@@ -1,0 +1,9 @@
+name: orders
+label: Orders semantic model
+description: Orders placed, with the measures and dimensions people ask about.
+domain: orders
+table: orders
+entities: [order]
+measures: [order_count, revenue]
+dimensions: [region, product, status]
+time_dimensions: [order_date]

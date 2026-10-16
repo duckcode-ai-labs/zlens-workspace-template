@@ -1,0 +1,8 @@
+// dql-format: 1
+
+domain "Orders" {
+  id = "orders"
+  owner = "data-steward@example.com"
+  description = "Orders placed with the company: how many, for how much, by region, product and month. The starter domain of this workspace; rename or replace it with your first real domain."
+  reviewCadence = "quarterly"
+}
