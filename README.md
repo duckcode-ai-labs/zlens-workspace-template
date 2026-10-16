@@ -167,15 +167,22 @@ policies) and apply to every query a worker runs, Ask, notebooks and App
 tiles alike, as the person asking. Nothing a creator commits here can widen
 them. Roles come from your identity provider's groups (Admin → Roles).
 
-**Who an App is for** is in the repository: `audienceGroups` in
-`apps/orders-weekly/dql.app.json`. The template ships the placeholder
-`["everyone"]`. Replace it with the identity-provider group names the App is
-for before people open it; with ZLens Enterprise, only members of the named
-groups, the App's owners and people given access can open the App, so a group
-that does not exist in your directory keeps everyone but the owners out.
-Remove the key to let the App's policies decide alone. An admin can override
-the file's audience at once in Admin → Access policies → *Who may open each
-App*, and should put the same groups in the file through review afterwards.
+**Who an App is for.** The template ships `apps/orders-weekly/dql.app.json`
+**without** an `audienceGroups` key, so the install decides: the workspace's
+roles and the App's own policies in the file say who may open it. Two ways to
+narrow it to named groups:
+
+- **An admin, at once:** Admin → Access policies → *Who may open each App*,
+  choosing groups from your identity provider (or ZLens groups). The setting
+  lives in ZLens Enterprise, not in this repository, and applies to everything
+  done with the App (reading, running, exporting, following, asking about it);
+  the App's owners and people given access still pass.
+- **An author, through review:** add `"audienceGroups": ["<a real group name>"]`
+  to `dql.app.json` in a draft space or branch and open a pull request. Once
+  merged, the App opens only for members of those groups, its owners and people
+  given access; others see "You don't have access" with **Request access**.
+  Name groups that exist in your directory: a group nobody is in keeps
+  everyone but the owners out.
 
 ## Never commit
 
@@ -199,7 +206,7 @@ App*, and should put the same groups in the file through review afterwards.
 - [ ] The ZLens warehouse account is read-only
 - [ ] `CODEOWNERS` names your stewards and admins
 - [ ] `owner` in `domains/orders/domain.dql`, the blocks, the metrics and the App is a real person or team
-- [ ] `audienceGroups` in `apps/orders-weekly/dql.app.json` names your groups (or is removed)
+- [ ] Decided who may open the Orders Weekly App: Admin → Access policies, or `audienceGroups` in `apps/orders-weekly/dql.app.json` through a pull request
 - [ ] The admin registered the repository (`workspaces`) and the secret (`worker_warehouse_secrets`)
 - [ ] The GitHub App is installed here and **DQL certification** is required on `main`
 - [ ] The first question answered **Certified** in the install's step 6

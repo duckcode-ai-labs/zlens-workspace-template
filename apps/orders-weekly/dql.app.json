@@ -11,10 +11,7 @@
   ],
   "requiredExports": [],
   "domain": "orders",
-  "audience": "everyone in the workspace, until you name the groups this App is for",
-  "audienceGroups": [
-    "everyone"
-  ],
+  "audience": "the orders team and its stakeholders",
   "lifecycle": "certified",
   "reviewCadence": "quarterly",
   "owners": [
